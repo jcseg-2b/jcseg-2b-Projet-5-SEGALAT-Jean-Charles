@@ -20,20 +20,43 @@ const slides = [
 
 const left = document.querySelector('.arrow_left');
 const right = document.querySelector('.arrow_right');
+const bannerImg = document.querySelector('.banner-img');
+const bannerText = document.querySelector('#banner p');
 
 
 let i = 0;
 
 right.addEventListener('click', () => {
 	i++;
+	if (i > slides.length - 1) {
+  i = 0;
+}
+ 	updateSlide();  // ← Ajoutez cette ligne
 	console.log(i);
 });
 
 left.addEventListener('click', () => {
 	i--;
+if (i < 0) {
+  i = slides.length - 1;
+}
+ 	updateSlide();  // ← Ajoutez cette ligne
 	console.log(i);
 });
 
 
 const dots = document.querySelectorAll('.dot');
 dots[0].classList.add('dot_selected');
+
+
+
+
+function updateSlide() {
+  bannerImg.src = "./assets/images/slideshow/" + slides[i].image;
+  bannerText.innerHTML = slides[i].tagLine;
+  
+  for (let j = 0; j < dots.length; j++) {
+    dots[j].classList.remove('dot_selected');
+  }
+  dots[i].classList.add('dot_selected');
+}
